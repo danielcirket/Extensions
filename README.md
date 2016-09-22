@@ -1,6 +1,8 @@
 # Extensions
 Collection of useful C# Extension Methods
 
+[![Build status](https://ci.appveyor.com/api/projects/status/alfdf1aprrcek2dh?svg=true)](https://ci.appveyor.com/project/danielcirket/extensions)
+
 #### Table of Contents
 1. [DateTime](https://github.com/danielcirket/Extensions/wiki/DateTime)
 2. [Dictionary](https://github.com/danielcirket/Extensions/wiki/Dictionary)
