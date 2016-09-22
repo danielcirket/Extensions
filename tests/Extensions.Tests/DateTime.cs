@@ -269,14 +269,14 @@ namespace Extensions.Tests
                 result.Should().Be($"{yearsAgo} years ago");
             }
         }       
-        public class Years
+        public class YearsBetween
         {
             [Fact]
             public static void WhenInputIsMoreThanAYearAgoThenShouldReturnCorrectNumberOfYears()
             {
                 var input = new DateTime(2000, 01, 01);
 
-                var result = input.Years();
+                var result = input.YearsBetween();
 
                 result.Should().Be(DateTime.Today.Year - input.Year);
             }
@@ -285,7 +285,7 @@ namespace Extensions.Tests
             {
                 var input = DateTime.Now.AddYears(-1).AddDays(1);
 
-                var result = input.Years();
+                var result = input.YearsBetween();
 
                 result.Should().Be(0);
             }
