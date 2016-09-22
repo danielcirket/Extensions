@@ -1,0 +1,45 @@
+﻿{
+  "packOptions": {
+    "summary": "Collection of useful C# Extension methods.",
+    "tags": [ "Extension Method", "Extension", "Extensions" ],
+    "owners": [ "Daniel Cirket" ],
+    "projectUrl": "https://github.com/danielcirket/Extensions/",
+    "licenseUrl": "https://github.com/danielcirket/Extensions/blob/master/LICENSE",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/danielcirket/Extensions"
+    }
+  },
+  "version": "1.0.0-alpha-*",
+  "description": "Collection of useful C# Extension methods",
+  "authors": [ "Daniel Cirket" ],
+
+  "dependencies": {
+
+  },
+
+  "buildOptions": {
+    "warningsAsErrors": true
+  },
+
+  "frameworks": {
+    "netstandard1.3": {
+      "dependencies": {
+        "System.Runtime": "4.1.0",
+        "System.Linq": "4.1.0",
+        "System.Reflection": "4.1.0",
+        "System.Reflection.TypeExtensions": "4.1.0",
+        "System.Diagnostics.Tools": "4.0.1",
+        "System.Reflection.Extensions": "4.0.1",
+        "System.Runtime.InteropServices": "4.1.0",
+        "System.Linq.Expressions": "4.1.0",
+        "System.Runtime.Extensions": "4.1.0"
+      }
+    },
+    "net452": {
+      "dependencies": {
+        
+      }
+    }
+  }
+}

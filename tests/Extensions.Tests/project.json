@@ -1,0 +1,38 @@
+﻿{
+  "packOptions": {
+    "summary": "Collection of useful C# Extension methods unit tests",
+    "tags": [ "Extension Method", "Extension", "Extensions" ],
+    "owners": [ "Daniel Cirket" ],
+    "projectUrl": "https://github.com/danielcirket/Extensions/",
+    "licenseUrl": "https://github.com/danielcirket/Extensions/blob/master/LICENSE",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/danielcirket/Extensions"
+    }
+  },
+  "version": "1.0.0-alpha-*",
+  "description": "Collection of useful C# Extension methods unit tests",
+  "authors": [ "Daniel Cirket" ],
+
+  "testRunner": "xunit",
+
+  "buildOptions": {
+    "debugType": "portable",
+    "warningsAsErrors": true
+  },
+
+  "dependencies": {
+    "FluentAssertions": "4.14.0",
+    "xunit": "2.2.0-beta2-build3300",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "Extensions": {
+      "target": "project"
+    }
+  },
+
+  "frameworks": {
+    "net452": {
+      "System.Runtime": "4.0.10"
+    }
+  }
+}

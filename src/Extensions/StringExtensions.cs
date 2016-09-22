@@ -174,9 +174,8 @@ namespace Extensions
                 {
                     type = typeof(Enum);
 
-
                     // TODO(Dan): Additional Checks to make sure this is always the correct method.
-                    methodInfo = type.GetTypeInfo().GetMethods()
+                    methodInfo = type.GetMethods()
                                      .Where(mi =>
                                                 mi.ContainsGenericParameters
                                             )
@@ -185,7 +184,7 @@ namespace Extensions
                 else
                 {
 
-                    methodInfo = typeInfo.GetMethod(
+                    methodInfo = type.GetMethod(
                                         methodName,
                                         new[]
                                             {
