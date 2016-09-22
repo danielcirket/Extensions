@@ -1,0 +1,33 @@
+version: '{build}'
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+  - develop
+nuget:
+  disable_publish_on_pr: true
+  account_feed: true
+  project_feed: true
+build_script:
+- ps: .\build.ps1
+test: off
+artifacts:  
+- path: .\artifacts\**\*.nupkg
+  name: NuGet
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+configuration: Release
+platform: Any CPU
+deploy:
+  - provider: NuGet
+    symbol_server: https://ci.appveyor.com/nuget/danielcirket/api/v2/package
+    server: https://ci.appveyor.com/nuget/danielcirket/api/v2/package
+    api_key:
+      secure: uFSusnOGNJH7jZTIj0/gf6dWlRVX3OBjiOAfkCFQOJo=
+    artifact: NuGet
+    skip_symbols: true
