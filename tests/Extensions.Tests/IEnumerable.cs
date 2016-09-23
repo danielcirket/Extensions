@@ -266,5 +266,57 @@ namespace Extensions.Tests
                 public string Name { get; set; }
             }
         }
+        public class ToString_
+        {
+            [Fact]
+            public static void WhenSourceIsNullThenShouldThrowArgumentNullException()
+            {
+                IEnumerable<int> input = null;
+
+                Action act = () => input.ToString(", ");
+
+                act.ShouldThrow<ArgumentNullException>();
+            }
+            [Fact]
+            public static void WhenSourceContainsItemsThenShouldReturnStringSeparatedBySeparater()
+            {
+                var input = new List<int> { 1, 2, 3, 4, 5 };
+
+                var result = input.ToString(", ");
+
+                result.Should().Be("1, 2, 3, 4, 5");
+            }
+            [Fact]
+            public static void WhenSourceContainsNoItemsThenShouldEmptyString()
+            {
+                var input = new List<int>();
+
+                var result = input.ToString(", ");
+
+                result.Should().Be(string.Empty);
+            }
+            [Fact]
+            public static void WhenSourceHasFuncToReturnStringThenShouldReturnSeparatedListString()
+            {
+                var input = new List<TestClass>
+                {
+                    new TestClass { Id = 1, Name = "Name #1" },
+                    new TestClass { Id = 2, Name = "Name #2" },
+                    new TestClass { Id = 3, Name = "Name #3" },
+                    new TestClass { Id = 4, Name = "Name #4" },
+                    new TestClass { Id = 5, Name = "Name #5" },
+                };
+           
+                var result = input.ToString(item => item.Name, ", ");
+
+                result.Should().Be("Name #1, Name #2, Name #3, Name #4, Name #5");
+            }
+
+            public class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+        }
     }
 }

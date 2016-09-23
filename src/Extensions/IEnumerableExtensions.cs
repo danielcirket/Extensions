@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Extensions
 {
@@ -91,6 +92,25 @@ namespace Extensions
                 return Enumerable.Empty<T>();
 
             return source.Where(item => !list.Any(x => keySelector(x).Equals(keySelector(item))));
+        }
+        public static string ToString<T>(this IEnumerable<T> source, string separater)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            return ToString(source, item => item.ToString(), separater);
+        }
+        public static string ToString<T>(this IEnumerable<T> source, Func<T, string> valueSelector, string separater)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            var sb = new StringBuilder();
+
+            foreach (var item in source)
+                sb.Append($"{valueSelector(item)}{separater}");
+
+            return sb.TrimEnd(", ").ToString();
         }
 
         private static IEnumerable<IEnumerable<T>> ChunkInternal<T>(IEnumerable<T> source, int chunkSize)
