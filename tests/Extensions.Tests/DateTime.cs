@@ -379,5 +379,47 @@ namespace Extensions.Tests
                 result.Should().Be(-62135596800);
             }
         }
+        public class ToStartOfDay
+        {
+            [Fact]
+            public static void WhenInputIsAlreadyStartOfDayThenShouldReturnSameValue()
+            {
+                var input = new DateTime(2016, 01, 01);
+
+                var result = input.ToStartOfDay();
+
+                result.Should().Be(input);
+            }
+            [Fact]
+            public static void WhenInputIsNotAlreadyStartOfDayThenShouldReturnSameDateAtStartOfDay()
+            {
+                var input = new DateTime(2016, 01, 01, 12, 12, 12);
+
+                var result = input.ToStartOfDay();
+
+                result.Should().Be(new DateTime(2016, 01, 01));
+            }
+        }
+        public class ToEndOfDay
+        {
+            [Fact]
+            public static void WhenInputIsAlreadyEndOfDayThenShouldReturnSameValue()
+            {
+                var input = new DateTime(2016, 01, 02).AddSeconds(-1);
+
+                var result = input.ToEndOfDay();
+
+                result.Should().Be(input);
+            }
+            [Fact]
+            public static void WhenInputIsNotAlreadyEndOfDayThenShouldReturnSameDateAtEndOfDay()
+            {
+                var input = new DateTime(2016, 01, 01, 12, 12, 12);
+
+                var result = input.ToEndOfDay();
+
+                result.Should().Be(new DateTime(2016, 01, 01, 23, 59, 59));
+            }
+        }
     }
 }

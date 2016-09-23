@@ -103,7 +103,6 @@ namespace Extensions
         }
         public static Age Age(this DateTime source, DateTime since)
         {
-
             if (source > since)
                 throw new ArgumentException(nameof(source), $"'{nameof(source)}' should on or before '{nameof(since)}'");
 
@@ -146,6 +145,14 @@ namespace Extensions
         public static long ToEpoch(this DateTime source)
         {
             return Convert.ToInt64((source.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds);
+        }
+        public static DateTime ToEndOfDay(this DateTime source)
+        {
+            return source.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+        }
+        public static DateTime ToStartOfDay(this DateTime source)
+        {
+            return source.Date;
         }
     }
 }
