@@ -18,8 +18,11 @@ namespace Extensions
         {
             return source == null;
         }
-        public static IDictionary<string, object> AsDictionary(this object source, BindingFlags bindingAttr = BindingFlags.Public | BindingFlags.Instance)
+        public static IDictionary<string, object> ToDictionary(this object source, BindingFlags bindingAttr = BindingFlags.Public | BindingFlags.Instance)
         {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
             return source.GetType().GetProperties(bindingAttr).ToDictionary
             (
                 propInfo => propInfo.Name,
