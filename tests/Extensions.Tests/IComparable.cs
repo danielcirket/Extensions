@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
 namespace Extensions.Tests
@@ -33,6 +34,54 @@ namespace Extensions.Tests
                 var result = input.Clamp(0, 2);
 
                 result.Should().Be(1);
+            }
+        }
+        public class IsBetween
+        {
+            [Fact]
+            public static void WhenValueIsNullThenShouldThrowArgumentNullException()
+            {
+                string input = null;
+
+                Action act = () => input.IsBetween("1", "2");
+
+                act.ShouldThrow<ArgumentNullException>();
+            }
+            [Fact]
+            public static void WhenValueIsBetweenMinAndMaxThenShouldReturnTrue()
+            {
+                var input = 5;
+
+                var result = input.IsBetween(1, 10);
+
+                result.Should().Be(true);
+            }
+            [Fact]
+            public static void WhenValueIsNotBetweenMinAndMaxThenShouldReturnFalse()
+            {
+                var input = 15;
+
+                var result = input.IsBetween(1, 10);
+
+                result.Should().Be(false);
+            }
+            [Fact]
+            public static void WhenValueIsOnBorderAndInclusiveIsFalseThenShouldReturnFalse()
+            {
+                var input = 10;
+
+                var result = input.IsBetween(1, 10, false);
+
+                result.Should().Be(false);
+            }
+            [Fact]
+            public static void WhenValueIsOnBorderAndInclusiveIsTrueThenShouldReturnTrue()
+            {
+                var input = 10;
+
+                var result = input.IsBetween(1, 10);
+
+                result.Should().Be(true);
             }
         }
     }

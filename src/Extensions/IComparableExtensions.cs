@@ -13,5 +13,15 @@ namespace Extensions
             else
                 return source;
         }
+        public static bool IsBetween<T>(this T source, T min, T max, bool inclusive = true) where T : IComparable<T>
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            if (inclusive)
+                return source.CompareTo(min) >= 0 && source.CompareTo(max) <= 0;
+
+            return source.CompareTo(min) > 0 && source.CompareTo(max) < 0;
+        }
     }
 }
