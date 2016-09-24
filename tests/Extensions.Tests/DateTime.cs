@@ -294,15 +294,6 @@ namespace Extensions.Tests
         public class Age
         {
             [Fact]
-            public static void WhenInputIsAfterSinceThenShouldThrowArgumentException()
-            {
-                var input = DateTime.Now.AddYears(1);
-
-                Action act = () => input.Age();
-
-                act.ShouldThrow<ArgumentException>();
-            }
-            [Fact]
             public static void WhenInputIsOneYearAgoThenShouldReturnOneYear()
             {
                 var input = DateTime.Now.AddYears(-1);
