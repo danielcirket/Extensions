@@ -23,6 +23,10 @@ namespace Extensions
 
             return nextDay;
         }
+        public static int MonthsBetween(this DateTime source)
+        {
+            return source.MonthsBetween(DateTime.Today);
+        }
         public static int MonthsBetween(this DateTime source, DateTime comparison)
         {
             return Math.Abs((source.Month - comparison.Month) + 12 * (source.Year - comparison.Year));
