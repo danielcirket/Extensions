@@ -15,10 +15,6 @@ namespace Extensions
         }
         public static DateTime NextWorkingDay(this DateTime source)
         {
-            // TODO(Dan): Should this take into account public holidays?
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
             var currentDay = source;
             var nextDay = source.AddDays(1);
 
@@ -83,18 +79,19 @@ namespace Extensions
         }
         public static int YearsBetween(this DateTime source)
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            if (DateTime.Today.Month < source.Month ||
-                DateTime.Today.Month == source.Month &&
-                DateTime.Today.Day < source.Day)
+            return source.YearsBetween(DateTime.Today);
+        }
+        public static int YearsBetween(this DateTime source, DateTime comparison)
+        {
+            if (comparison.Month < source.Month ||
+                comparison.Month == source.Month &&
+                comparison.Day < source.Day)
             {
-                return DateTime.Today.Year - source.Year - 1;
+                return comparison.Year - source.Year - 1;
             }
             else
             {
-                return DateTime.Today.Year - source.Year;
+                return comparison.Year - source.Year;
             }
         }
         public static Age Age(this DateTime source)
@@ -102,10 +99,7 @@ namespace Extensions
             return Age(source, DateTime.Now);
         }
         public static Age Age(this DateTime source, DateTime since)
-        {
-            if (source > since)
-                throw new ArgumentException(nameof(source), $"'{nameof(source)}' should on or before '{nameof(since)}'");
-
+        { 
             int years = 0;
             int days = 0;
             int months = 0;
