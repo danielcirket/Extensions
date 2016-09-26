@@ -687,5 +687,53 @@ namespace Extensions.Tests
                 }
             }
         }
+        public class Mask
+        {
+            [Fact]
+            public static void WhenInputIsNullThenShouldThrowArgumentNullException()
+            {
+                string input = null;
+
+                Action act = () => input.Mask("####");
+
+                act.ShouldThrow<ArgumentNullException>();
+            }
+            [Fact]
+            public static void WhenMaskIsNulLThenShouldThrowArgumentNullException()
+            {
+                var input = "1234-1234-1234-1234";
+
+                Action act = () => input.Mask(null);
+
+                act.ShouldThrow<ArgumentNullException>();
+            }
+            [Fact]
+            public static void WhenMaskMatchesInputThenShouldMaskOutMatchingParts()
+            {
+                var input = "1234-1234-1234";
+
+                var result = input.Mask("####-####-####");
+
+                result.Should().Be("####-####-####");
+            }
+            [Fact]
+            public static void WhenMaskIsSmallerThanInputShouldMaskUpToMaskEnd()
+            {
+                var input = "1234-1234-1234-1234";
+
+                var result = input.Mask("####-####-####");
+
+                result.Should().Be("####-####-####-1234");
+            }
+            [Fact]
+            public static void WhenMaskIsLongerThanInputShouldMaskTruncatedToInput()
+            {
+                var input = "1234-1234";
+
+                var result = input.Mask("####-####-####");
+
+                result.Should().Be("####-####");
+            }
+        }
     }
 }

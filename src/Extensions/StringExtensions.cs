@@ -89,6 +89,37 @@ namespace Extensions
 
             return source.IndexOf(find, comparison) >= 0;
         }
+        public static string Mask(this string source, string mask)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            if (mask == null)
+                throw new ArgumentNullException(nameof(mask));
+
+            var result = string.Empty;
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                if (i < mask.Length)
+                {
+                    if (mask[i] != '#')
+                    {
+                        result += source[i];
+                    }
+                    else
+                    {
+                        result += mask[i];
+                    }
+                } 
+                else
+                {
+                    result += source[i];
+                }
+            }
+
+            return result;
+        }
         public static string Truncate(this string source, int maxLength)
         {
             if (source == null)
