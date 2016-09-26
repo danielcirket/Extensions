@@ -666,7 +666,7 @@ namespace Extensions.Tests
             [Fact]
             public static void WhenInputIsValidDateTimeThenShouldReturnParsedValue()
             {
-                string input = new DateTime(2016, 01, 31).ToShortDateString();
+                string input = new DateTime(2016, 01, 31).ToString("d");
                 var result = input.Parse<DateTime>();
                 result.Should().Be(new DateTime(2016, 01, 31));
             }

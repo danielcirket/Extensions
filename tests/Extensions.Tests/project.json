@@ -33,6 +33,14 @@
   "frameworks": {
     "net452": {
       "System.Runtime": "4.0.10"
+    },
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.1"
+        }
+      }
     }
   }
 }

@@ -18,7 +18,7 @@ namespace Extensions.Tests
             {
                 Version version = null;
 
-                Action act = () => version.CompareTo(new Version(), 0);
+                Action act = () => version.CompareTo(new Version(""), 0);
 
                 act.ShouldThrow<ArgumentException>();
             }
