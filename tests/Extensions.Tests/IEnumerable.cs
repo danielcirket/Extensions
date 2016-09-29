@@ -318,5 +318,25 @@ namespace Extensions.Tests
                 public string Name { get; set; }
             }
         }
+        public class Pivot
+        {
+            // TODO(Dan): Write unit tests for Pivot method
+            [Fact]
+            public static void WhenInputIsNullShouldThrowArgumentNullException()
+            {
+                IEnumerable<TestClass> input = null;
+
+                Action act = () => input.Pivot(x => x.Id, y => y.Name, z => z.Count());
+
+                act.ShouldThrow<ArgumentNullException>();
+            }
+            
+
+            public class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+        }
     }
 }

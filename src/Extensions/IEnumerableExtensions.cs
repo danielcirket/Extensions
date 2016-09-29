@@ -112,7 +112,41 @@ namespace Extensions
 
             return sb.TrimEnd(", ").ToString();
         }
+        public static IDictionary<TKey, Dictionary<TKey2, TValue>> Pivot<TSource, TKey, TKey2, TValue>(this IEnumerable<TSource> source, Func<TSource, TKey> firstKeySelector, Func<TSource, TKey2> secondKeySelector, Func<IEnumerable<TSource>, TValue> aggregate)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
 
+            if (firstKeySelector == null)
+                throw new ArgumentNullException(nameof(firstKeySelector));
+
+            if (secondKeySelector == null)
+                throw new ArgumentNullException(nameof(secondKeySelector));
+
+            if (aggregate == null)
+                throw new ArgumentNullException(nameof(aggregate));
+
+            var result = new Dictionary<TKey, Dictionary<TKey2, TValue>>();
+
+            var lookup = source.ToLookup(firstKeySelector);
+
+            foreach (var item in lookup)
+            {
+                var dictionary = new Dictionary<TKey2, TValue>();
+
+                result.Add(item.Key, dictionary);
+
+                var valueDictionary = item.ToLookup(secondKeySelector);
+
+                foreach (var subItem in valueDictionary)
+                {
+                    dictionary.Add(subItem.Key, aggregate(subItem));
+                }
+            }
+
+            return result;
+        }
+        
         private static IEnumerable<IEnumerable<T>> ChunkInternal<T>(IEnumerable<T> source, int chunkSize)
         {
             var chunk = new List<T>();
