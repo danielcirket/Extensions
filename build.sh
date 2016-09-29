@@ -14,14 +14,12 @@ dotnet restore
 # Ideally we would use the 'dotnet test' command to test netcoreapp and net452 so restrict for now 
 # but this currently doesn't work due to https://github.com/dotnet/cli/issues/3073 so restrict to netcoreapp
 
-dotnet test ./tests/Extensions.Tests -c Release -f netcoreapp1.0
+dotnet test ./tests/Extensions.Tests -c Release
 
 # Instead, run directly with mono for the full .net version 
-dotnet build ./tests/Extensions.Tests -c Release -f net452 -o ./tests/Extensions.Tests/bin/Release/
+#dotnet build ./tests/Extensions.Tests -c Release -f net452
 
-mono \  
-./tests/Extensions.Tests/bin/Release/net452/*/dotnet-test-xunit.exe \  
-./tests/Extensions.Tests/bin/Release/net452/*/Extensions.Tests.dll
+#mono ./tests/Extensions.Tests/bin/Release/net452/*/dotnet-test-xunit.exe ./tests/Extensions.Tests/bin/Release/net452/*/Extensions.Tests.dll
 
 revision=${TRAVIS_JOB_ID:=1}  
 revision=$(printf "%05d" $revision) 
