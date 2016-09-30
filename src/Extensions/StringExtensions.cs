@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -191,6 +192,7 @@ namespace Extensions
                 return defaultValue;
 
             var type = typeof(T);
+            //var type = defaultValue.GetType();
 
             Delegate result = null;
 
@@ -214,14 +216,26 @@ namespace Extensions
                 }
                 else
                 {
-
-                    methodInfo = type.GetMethod(
-                                        methodName,
+                    methodInfo = type.GetMethod(methodName,
                                         new[]
                                             {
                                             typeof(string),
+                                            typeof(NumberStyles),
+                                            typeof(CultureInfo),
                                             typeof(T).MakeByRefType()
                                             });
+
+                    if (methodInfo == null)
+                    {
+
+                        methodInfo = type.GetMethod(
+                                            methodName,
+                                            new[]
+                                                {
+                                            typeof(string),
+                                            typeof(T).MakeByRefType()
+                                                });
+                    }
                 }
 
                 if (methodInfo == null)
@@ -243,11 +257,27 @@ namespace Extensions
 
             if (result != null)
             {
+                var paramlist = result.GetMethodInfo().GetParameters().Where(x => x.ParameterType.FullName != "System.Runtime.CompilerServices.Closure");
+                var paramCount = paramlist.Count();
+
                 var parameters = new object[] { source, default(T) };
 
-                return (bool)result.DynamicInvoke(parameters)
-                            ? (T)parameters[1]
-                            : defaultValue;
+                if (paramCount > 2)
+                {
+                    parameters = new object[] { source, NumberStyles.Any, CultureInfo.CurrentCulture, default(T) };
+                }
+
+                if ((bool)result.DynamicInvoke(parameters))
+                {
+                    if (paramCount == 2)
+                        return (T)parameters[1];
+                    else
+                        return (T)parameters[3];
+                }
+                else
+                {
+                    return defaultValue;
+                }
             }
 
             return defaultValue;
