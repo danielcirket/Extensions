@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using FluentAssertions;
 using Xunit;
 
@@ -583,8 +584,10 @@ namespace Extensions.Tests
             public static void WhenInputIsValidIntThenShouldReturnParsedValue()
             {
                 string input = "123";
+                var expected = int.Parse(input);
+
                 var result = input.Parse<int>();
-                result.Should().Be(123);
+                result.Should().Be(expected);
             }
             [Fact]
             public static void WhenInputIsInvalidIntThenShouldReturnDefaultValue()
@@ -597,27 +600,33 @@ namespace Extensions.Tests
             public static void WhenInputIsValidDecimalThenShouldReturnParsedValue()
             {
                 string input = "123.123";
+                var expected = decimal.Parse(input);
+
                 var result = input.Parse<decimal>();
-                result.Should().Be(123.123m);
+                result.Should().Be(expected);
             }
             [Fact]
             public static void WhenInputIsInvalidDecimalThenShouldReturnDefaultValue()
             {
                 string input = "123a";
                 var result = input.Parse<decimal>();
+
                 result.Should().Be(0);
             }
             [Fact]
             public static void WhenInputIsValidFloatThenShouldReturnParsedValue()
             {
                 string input = "123.123";
+                var expected = float.Parse(input);
+
                 var result = input.Parse<float>();
-                result.Should().Be(123.123f);
+                result.Should().Be(expected);
             }
             [Fact]
             public static void WhenInputIsInvalidFloatThenShouldReturnDefaultValue()
             {
                 string input = "123a";
+
                 var result = input.Parse<float>();
                 result.Should().Be(0);
             }
@@ -625,8 +634,10 @@ namespace Extensions.Tests
             public static void WhenInputIsValidDoubleThenShouldReturnParsedValue()
             {
                 string input = "123.123";
+                var expected = double.Parse(input);
+
                 var result = input.Parse<double>();
-                result.Should().Be(123.123);
+                result.Should().Be(expected);
             }
             [Fact]
             public static void WhenInputIsInvalidDoubleThenShouldReturnDefaultValue()
@@ -639,8 +650,10 @@ namespace Extensions.Tests
             public static void WhenInputIsValidEnumValueThenShouldReturnParsedValue()
             {
                 string input = "2";
+                var expected = (ParseTestEnum)Enum.Parse(typeof(ParseTestEnum), input);
+
                 var result = input.Parse<ParseTestEnum>();
-                result.Should().Be(ParseTestEnum.Two);
+                result.Should().Be(expected);
             }
             [Fact]
             public static void WhenInputIsInvalidEnumValueThenShouldReturnDefaultValue()
@@ -667,8 +680,10 @@ namespace Extensions.Tests
             public static void WhenInputIsValidDateTimeThenShouldReturnParsedValue()
             {
                 string input = new DateTime(2016, 01, 31).ToString("d");
+                var expected = DateTime.Parse(input);
+
                 var result = input.Parse<DateTime>();
-                result.Should().Be(new DateTime(2016, 01, 31));
+                result.Should().Be(expected);
             }
 
             private enum ParseTestEnum
